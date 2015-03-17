@@ -10,8 +10,6 @@ syntax on
 set wildchar=<Tab> wildmenu wildmode=full
 set wildcharm=<C-Z>
 nnoremap <C-j> :join<CR>
-nnoremap J jzz
-nnoremap K kzz
 "nnoremap <F2> :b <C-Z>
 "Commented out since conflicts with camelcasemotion
 "nnoremap , <C-^>
