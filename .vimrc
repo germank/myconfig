@@ -1,96 +1,82 @@
-"set nocompatible
-set backspace=indent,eol,start
-set mouse=a
-set expandtab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set autoindent
+"
+" ===== Display =====
+"
+colorscheme base16-material
+let base16colorspace=256
 syntax on
-set wildchar=<Tab> wildmenu wildmode=full
-set wildcharm=<C-Z>
-nnoremap <C-j> :join<CR>
-"nnoremap <F2> :b <C-Z>
-"Commented out since conflicts with camelcasemotion
-"nnoremap , <C-^>
-set hidden
-set nobackup
-set nowritebackup
-set incsearch
-"highlight search results
-set hls
-"hides search results when pressing esc
-nnoremap <CR> :noh<return><CR>
-" Buffer naviation
-map <M-Left> :bprevious<CR>
-map <M-Right> :bnext<CR>
-" Undo in insert mode.
-imap <c-z> <c-o>u
-colo summerfruit256
-set t_Co=256
 
-"""" PLUGINS """""
-call pathogen#infect() 
-"python from powerline.vim import setup as powerline_setup
-"python powerline_setup()
-"python del powerline_setup
-" No expand tabs on makefiles
-"autocmd FileType make set noexpandtab
-filetype plugin on
-set omnifunc=syntaxcomplete#Complete
-let g:SuperTabDefaultCompletionType = "context"
-map <F3> :FufBuffer<CR>
+"
+" ===== Native Options =====
+set number                     " set line numbers
+set cursorline                 " highlight cursor line 
+set hlsearch                   " highlight search
+set incsearch                  " highlight search and move cursor as you type
+set showmatch                  " jump quickly to matching parenthesis
+set autoindent                 " copy indent from previous line
+set shiftwidth=4               " number of spaces per indent
+set expandtab                  " replace <Tab> by... 
+set tabstop=4                  " ... four spaces
+set ruler                      " show position at file
+set nobackup                   " do not create backup files
+set noswapfile                 " do not create swap files
+set laststatus=2               " show status bar after ruler
+set linebreak                  " break long lines at spaces
+set breakindent                " indent broken lines equally
+set showbreak=..               " signal indents with ..
+set colorcolumn=80             " color column at 80
+set hidden                     " allow switching from unsaved buffers
+set clipboard=unnamed          " use system's clipboard
+set rtp+=~/.fzf                " where is fzf?
+set backspace=indent,eol,start " always allow backspace
+set undofile                   " Save undos after file closes
+set undodir=$HOME/.vim/undo    " where to save undo histories
+set undolevels=1000            " How many undos
+set undoreload=10000           " number of lines to save for undo
 
-set runtimepath^=~/.vim/bundle/ctrlp.vim
+"
+" ===== Plugins =====
+"
+call plug#begin()
+" fzf fuzzy file finder
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+" allows seamless navigation between vim windows and tmux panes
+Plug 'christoomey/vim-tmux-navigator'
+" highlight all matches in incremental search
+Plug 'haya14busa/incsearch.vim'
+" search and replace the word under the cursor
+Plug 'wincent/scalpel'
+" CamelCase motion 
+Plug 'bkad/CamelCaseMotion'
+call plug#end()
 
-"powerline
-set laststatus=2
-"set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
-"python from powerline.vim import setup as powerline_setup
-"python powerline_setup()
-"python del powerline_setup
+" config: incsearch.vim ===
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+" automatically clear highlighting
+let g:incsearch#auto_nohlsearch = 1
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
 
-nnoremap <F5> :GundoToggle<CR>
+" config: scalpel ===
+nmap <Leader>s <Plug>(Scalpel)
 
-"change the 'completeopt' option so that Vim's popup menu doesn't select the
-"first completion item, but rather just inserts the longest common text of all
-"matches; and the menu will come up even if there's only one match
-set completeopt=longest,menuone
-"the first will make <C-N> work the way it normally does; however, when the
-"menu appears, the <Down> key will be simulated. What this accomplishes is it
-"keeps a menu item always highlighted. This way you can keep typing characters
-"to narrow the matches, and the nearest match will be selected so that you can
-"hit Enter at any time to insert it. In the above mappings, the second one is
-"a little more exotic: it simulates <C-X><C-O> to bring up the omni completion
-"menu, then it simulates <C-N><C-P> to remove the longest common text, and
-"finally it simulates <Down> again to keep a match highlighted.
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+" config: CamelCaseMotion ===
+call camelcasemotion#CreateMotionMappings(',')
 
-inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-    \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-
-let g:lua_complete_omni = 1
-
-"--------OTHERS---------
-"Hell!
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
-" These are useful for moving between long wrapped lines.
-nnoremap k gk
-nnoremap j gj
+" ===== Hacks =====
+"
+" Seamless copy-paste integration
 vmap <C-C> "y+
 imap <D-v> ^O:set paste<Enter>^R+^O:set nopaste<Enter>
 
-"Show line numbers
-set nu
-
-
-"Automatic nopaste toggle 
-"(from https://coderwall.com/p/if9mda)
+" Automatically set paste mode in Vim when pasting in insert mode 
+" (https://coderwall.com/p/if9mda)
 function! WrapForTmux(s)
   if !exists('$TMUX')
     return a:s
@@ -113,11 +99,18 @@ endfunction
 
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
+" fuzzy file finder
+nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>m :Buffers<CR>
+nnoremap <Leader>l :Lines<CR>
 
-"\s to replace all occurrences of the word under the cursor
-:nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
+" These are useful for moving between long wrapped lines.
+nnoremap k gk
+nnoremap j gj
 
-"Converts any number of left-aligned n-whitespace sequences to tab sequences
-:command! -nargs=1 -range SuperRetab <line1>,<line2>s/\v%(^ *)@<= {<args>}/\t/g
+" Delete a buffer without closing a window
+nnoremap <Leader>d :bp\|bd #<CR>
 
-
+" Remap the switch to last used buffer key combination
+nnoremap <Leader>, <C-^>
+nnoremap <Leader>\ <C-^>
