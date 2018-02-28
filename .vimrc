@@ -114,3 +114,6 @@ nnoremap <Leader>d :bp\|bd #<CR>
 " Remap the switch to last used buffer key combination
 nnoremap <Leader>, <C-^>
 nnoremap <Leader>\ <C-^>
+
+" pydata coloring (TODO: put in a better place)
+au BufNewFile,BufRead *.lmx set filetype=xml
