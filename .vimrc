@@ -115,5 +115,9 @@ nnoremap <Leader>d :bp\|bd #<CR>
 nnoremap <Leader>, <C-^>
 nnoremap <Leader>\ <C-^>
 
+" spelling correction
+set spell spelllang=en_us
+hi SpellBad cterm=underline
+
 " pydata coloring (TODO: put in a better place)
 au BufNewFile,BufRead *.lmx set filetype=xml
