@@ -47,7 +47,7 @@ Plug 'haya14busa/incsearch.vim'
 " search and replace the word under the cursor
 Plug 'wincent/scalpel'
 " CamelCase motion 
-Plug 'bkad/CamelCaseMotion'
+" Plug 'bkad/CamelCaseMotion'
 call plug#end()
 
 " config: incsearch.vim ===
@@ -67,7 +67,7 @@ map g# <Plug>(incsearch-nohl-g#)
 nmap <Leader>s <Plug>(Scalpel)
 
 " config: CamelCaseMotion ===
-call camelcasemotion#CreateMotionMappings(',')
+" call camelcasemotion#CreateMotionMappings(',')
 
 " ===== Hacks =====
 "
