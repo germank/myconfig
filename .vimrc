@@ -1,8 +1,12 @@
 "
 " ===== Display =====
 "
-colorscheme base16-material
-let base16colorspace=256
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+else
+    colorscheme desert
+endif
 syntax on
 
 "
@@ -48,6 +52,8 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'wincent/scalpel'
 " CamelCase motion 
 " Plug 'bkad/CamelCaseMotion'
+" Julia support
+Plug 'JuliaEditorSupport/julia-vim'
 call plug#end()
 
 " config: incsearch.vim ===
