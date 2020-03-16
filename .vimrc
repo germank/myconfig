@@ -7,7 +7,6 @@ if filereadable(expand("~/.vimrc_background"))
 else
     colorscheme desert
 endif
-syntax on
 
 "
 " ===== Native Options =====
@@ -36,7 +35,8 @@ set undofile                   " Save undos after file closes
 set undodir=$HOME/.vim/undo    " where to save undo histories
 set undolevels=1000            " How many undos
 set undoreload=10000           " number of lines to save for undo
-
+set mouse=a                    " allows mouse scrolling and pointing
+set autowrite                  " save files when calling make
 "
 " ===== Plugins =====
 "
@@ -50,11 +50,30 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'haya14busa/incsearch.vim'
 " search and replace the word under the cursor
 Plug 'wincent/scalpel'
+" LaTeX plugin
+Plug 'lervag/vimtex'
 " CamelCase motion 
 " Plug 'bkad/CamelCaseMotion'
 " Julia support
 Plug 'JuliaEditorSupport/julia-vim'
+" Snippets engine.
+Plug 'SirVer/ultisnips'
+" Snippets
+Plug 'honza/vim-snippets'
 call plug#end()
+
+"Apply after vimtex is loaded
+syntax on
+
+" config: snippets
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsListSnippets="<c-l>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 " config: incsearch.vim ===
 map /  <Plug>(incsearch-forward)
@@ -108,7 +127,7 @@ inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 " fuzzy file finder
 nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>m :Buffers<CR>
-nnoremap <Leader>l :Lines<CR>
+"nnoremap <Leader>l :Lines<CR>
 
 " These are useful for moving between long wrapped lines.
 nnoremap k gk
@@ -122,7 +141,7 @@ nnoremap <Leader>, <C-^>
 nnoremap <Leader>\ <C-^>
 
 " spelling correction
-set spell spelllang=en_us
+set spell spelllang=en_gb
 hi SpellBad cterm=underline
 
 " pydata coloring (TODO: put in a better place)

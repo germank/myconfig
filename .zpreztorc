@@ -1,5 +1,6 @@
 # Set the Prezto modules to load (browse modules).
 # The order matters.
+zstyle ':prezto:*:*' color 'yes'
 zstyle ':prezto:load' pmodule \
   'environment' \
   'terminal' \
@@ -23,3 +24,8 @@ zstyle ':prezto:module:syntax-highlighting' highlighters \
   'brackets'
 zstyle ':prezto:module:prompt' theme 'skwp'
 zstyle ':prezto:module:terminal' auto-title 'yes'
+zstyle ':prezto:module:editor' key-bindings 'vi'
+# Auto convert .... to ../..
+zstyle ':prezto:module:editor' dot-expansion 'yes'
+# Allow the zsh prompt context to be shown.
+zstyle ':prezto:module:editor' ps-context 'yes'
