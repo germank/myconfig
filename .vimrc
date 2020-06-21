@@ -60,7 +60,23 @@ Plug 'JuliaEditorSupport/julia-vim'
 Plug 'SirVer/ultisnips'
 " Snippets
 Plug 'honza/vim-snippets'
+" Clojure REPL
+Plug 'tpope/vim-fireplace', {'tag': 'v2.1'}
+" Clojure lisp text objects
+Plug 'guns/vim-sexp'
+" Lein project management
+Plug 'tpope/vim-salve'
+" Sexp default mappings redefinition
+Plug 'tpope/vim-sexp-mappings-for-regular-people'
+" Useful macros for surrounding stuff with parentheses or similar
+Plug 'tpope/vim-surround'
+" Clojure auto-format
+Plug 'venantius/vim-cljfmt'
 call plug#end()
+
+" Don't cljfmt on save
+let g:clj_fmt_autosave = 0
+nnoremap <Leader>c :Cljfmt<CR>
 
 "Apply after vimtex is loaded
 syntax on
@@ -135,6 +151,9 @@ nnoremap j gj
 
 " Delete a buffer without closing a window
 nnoremap <Leader>d :bp\|bd #<CR>
+
+"Close window
+nnoremap <Leader>q :close<CR>
 
 " Remap the switch to last used buffer key combination
 nnoremap <Leader>, <C-^>
