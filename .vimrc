@@ -61,7 +61,7 @@ Plug 'SirVer/ultisnips'
 " Snippets
 Plug 'honza/vim-snippets'
 " Clojure REPL
-Plug 'tpope/vim-fireplace'
+Plug 'tpope/vim-fireplace', {'tag': 'v2.1'}
 " Clojure lisp text objects
 Plug 'guns/vim-sexp'
 " Lein project management
@@ -73,6 +73,10 @@ Plug 'tpope/vim-surround'
 " Clojure auto-format
 Plug 'venantius/vim-cljfmt'
 call plug#end()
+
+" Don't cljfmt on save
+let g:clj_fmt_autosave = 0
+nnoremap <Leader>c :Cljfmt<CR>
 
 "Apply after vimtex is loaded
 syntax on
