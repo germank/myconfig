@@ -72,6 +72,10 @@ Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'tpope/vim-surround'
 " Clojure auto-format
 Plug 'venantius/vim-cljfmt'
+" base 16
+Plug 'chriskempson/base16-vim'
+" Nord
+Plug 'nordtheme/vim', {'branch': 'main'}
 call plug#end()
 
 " Don't cljfmt on save
